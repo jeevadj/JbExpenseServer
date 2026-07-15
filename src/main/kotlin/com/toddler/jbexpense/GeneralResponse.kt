@@ -1,6 +1,6 @@
 package com.toddler.jbexpense
 
-data class GeneralResponse(
+open class GeneralResponse(
     val message: String = "",
     val result: String = ""
 )

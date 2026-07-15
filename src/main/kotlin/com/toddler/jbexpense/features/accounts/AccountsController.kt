@@ -35,7 +35,7 @@ class AccountsController(
             return ResponseEntity(CreatedAccountDTO(message = "Request param is null"), HttpStatus.BAD_REQUEST)
         }
         val createdAccount = accountsService.createAccount(accountName, balance, userId)
-        return ResponseEntity(CreatedAccountDTO(createdAccount), HttpStatus.CREATED)
+        return ResponseEntity(CreatedAccountDTO(createdAccount, result = "success"), HttpStatus.CREATED)
     }
     
 }

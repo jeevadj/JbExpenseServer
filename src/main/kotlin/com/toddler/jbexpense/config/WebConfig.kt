@@ -10,7 +10,13 @@ class WebConfig(private val userContextInterceptor: UserContextInterceptor) : We
 
     override fun addInterceptors(registry: InterceptorRegistry) {
         registry.addInterceptor(userContextInterceptor)
-            .addPathPatterns("/api/v1/accounts/**", "/api/v1/category/**", "/api/v1/transaction/**")
+            .addPathPatterns(
+                "/api/v1/accounts/**",
+                "/api/v1/category/**",
+                "/api/v1/transaction/**",
+                "/api/v1/trip/**",
+                "/api/v1/tripexpense/**",
+            )
     }
 }
 

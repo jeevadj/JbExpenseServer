@@ -31,6 +31,4 @@ data class Users(
 
     @Column
     var modifiedAt: LocalDateTime = LocalDateTime.now()
-
-
 )
