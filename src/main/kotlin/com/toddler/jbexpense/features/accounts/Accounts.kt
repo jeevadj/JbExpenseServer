@@ -31,6 +31,9 @@ data class Accounts(
     @Column(nullable = false)
     var updatedAt: Long = LocalDateTime.now().toInstant(ZoneOffset.UTC).toEpochMilli(),
 
+    @Column(nullable = false)
+    var isDefault: Boolean = false,
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
     var user: Users

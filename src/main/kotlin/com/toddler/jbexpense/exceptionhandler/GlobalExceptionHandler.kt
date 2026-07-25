@@ -1,6 +1,7 @@
 package com.toddler.jbexpense.exceptionhandler
 
 import com.toddler.jbexpense.common.ErrorResponse
+import com.toddler.jbexpense.common.ResourceNotFoundException
 import jakarta.persistence.EntityNotFoundException
 import jakarta.validation.ConstraintViolationException
 import org.springframework.http.HttpStatus
@@ -20,6 +21,15 @@ class GlobalExceptionHandler {
             message = ex.message ?: "Resource not found"
         )
         return ResponseEntity(error, HttpStatus.NOT_FOUND)
+    }
+
+    @ExceptionHandler(ResourceNotFoundException::class)
+    fun handleCustomNotFound(ex: ResourceNotFoundException): ResponseEntity<ErrorResponse> {
+        val error = ErrorResponse(
+            status = ex.status.value(),
+            message = ex.message ?: "Resource not found"
+        )
+        return ResponseEntity(error, HttpStatus.BAD_REQUEST)
     }
 
     // Catch validation errors (e.g., negative amount)

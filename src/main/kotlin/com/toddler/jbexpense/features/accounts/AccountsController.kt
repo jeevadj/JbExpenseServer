@@ -37,5 +37,17 @@ class AccountsController(
         val createdAccount = accountsService.createAccount(accountName, balance, userId)
         return ResponseEntity(CreatedAccountDTO(createdAccount, result = "success"), HttpStatus.CREATED)
     }
+
+    @GetMapping("/default")
+    fun getDefaultAccount(): ResponseEntity<CreatedAccountDTO> {
+        val userId = UserContextHolder.getUserId()!!.toLong()
+        val defaultAccount = accountsService.getDefaultAccount(userId) ?: return ResponseEntity(
+            CreatedAccountDTO(
+                message = "Default account not found",
+                result = "failure"
+            ), HttpStatus.NOT_FOUND
+        )
+        return ResponseEntity(CreatedAccountDTO(defaultAccount, result = "success"), HttpStatus.OK)
+    }
     
 }

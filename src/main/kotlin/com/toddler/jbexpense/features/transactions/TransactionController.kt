@@ -4,6 +4,7 @@ import com.toddler.jbexpense.common.UserContextHolder
 import com.toddler.jbexpense.features.transactions.requestParamObj.CreateTransactionRP
 import com.toddler.jbexpense.features.transactions.response.CreatedTransactionDTO
 import com.toddler.jbexpense.features.transactions.response.GetAllTransactions
+import com.toddler.jbexpense.features.transactions.response.MonthlySummaryDTO
 import com.toddler.jbexpense.features.transactions.response.toResponse
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
@@ -35,6 +36,13 @@ class TransactionController(
         val userId = UserContextHolder.getUserId()!!.toLong()
         val createdTransaction = transactionService.createTransaction(transaction, userId)
         return ResponseEntity(CreatedTransactionDTO(createdTransaction = createdTransaction), HttpStatus.CREATED)
+    }
+
+    @GetMapping("/summary/monthly")
+    fun getMonthlySummary(): ResponseEntity<MonthlySummaryDTO> {
+        val userId = UserContextHolder.getUserId()!!.toLong()
+        val summary = transactionService.getMonthlySummary(userId)
+        return ResponseEntity(summary, HttpStatus.OK)
     }
 
 }

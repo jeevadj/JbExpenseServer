@@ -31,7 +31,7 @@ class CategoryController(
             return ResponseEntity(CreatedCategoryDTO(message = "Request Param null"),HttpStatus.BAD_REQUEST)
         }
         val createdCategory = categoryService.createCategory(name = categoryName, userId = userId)
-        return ResponseEntity(CreatedCategoryDTO(category = createdCategory), HttpStatus.CREATED)
+        return ResponseEntity(CreatedCategoryDTO(category = createdCategory, result = "success"), HttpStatus.CREATED)
     }
 
 }
@@ -39,6 +39,7 @@ class CategoryController(
 data class CreatedCategoryDTO(
     val category: Category? = null,
     val message: String = "Account created successfully",
+    val result : String = ""
 )
 
 data class AllCategoriesDTO(

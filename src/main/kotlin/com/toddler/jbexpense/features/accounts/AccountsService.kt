@@ -18,7 +18,11 @@ class AccountsService(
         val user = usersRepository.findById(userId).orElseThrow {
             ResponseStatusException(HttpStatus.NOT_FOUND, "User not found")
         }
-        val account = Accounts(name = name, balance = balance, user = user)
+        val defaultAccount = accountsRepository.findByUserIdAndIsDefaultTrue(userId)
+        var account = Accounts(name = name, balance = balance, user = user)
+        if (defaultAccount == null) {
+            account = account.copy(isDefault = true)
+        }
         return accountsRepository.save(account)
     }
 
@@ -38,5 +42,9 @@ class AccountsService(
 
     fun getAccountByIdOrNull(id: Long): Accounts? {
         return accountsRepository.findById(id).orElse(null)
+    }
+
+    fun getDefaultAccount(userId: Long): Accounts? {
+        return accountsRepository.findByUserIdAndIsDefaultTrue(userId)
     }
 }
